@@ -9,6 +9,11 @@ import {
 import type { Observable } from 'rxjs';
 import { AfApi, apiToken } from './af-api.ts';
 
+export interface CustomerFilters {
+  readonly name?: string;
+  readonly documentOrContact?: string;
+}
+
 /** Customers: `parameter/customer`. */
 export class CustomerApi extends AfApi {
   constructor() {
@@ -17,6 +22,18 @@ export class CustomerApi extends AfApi {
 
   getAll(): Observable<Customer[]> {
     return this.get<Customer[]>('');
+  }
+
+  /**
+   * Customers matching the filters that are not empty: `name`, and/or `documentOrContact` (document,
+   * phone or email). With no filters it lists all. Silent when the call runs while the user types.
+   */
+  find(filters: CustomerFilters = {}, options: { readonly silent?: boolean } = {}): Observable<Customer[]> {
+    return this.get<Customer[]>(
+      '',
+      { name: filters.name?.trim() || undefined, documentOrContact: filters.documentOrContact?.trim() || undefined },
+      options,
+    );
   }
 
   /** Customers by name, or by document / contact when the term is only digits. Silent: it runs while typing. */
