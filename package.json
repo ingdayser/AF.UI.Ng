@@ -1,0 +1,30 @@
+{
+  "name": "af-ui-ng",
+  "private": true,
+  "type": "module",
+  "description": "Apoyo Financiero: shared front-end libraries (models and API clients) for the Angular SPA and the Angular Native app.",
+  "workspaces": ["packages/ui-models", "packages/ui-api"],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@angular/common": "^22.0.0",
+    "@angular/compiler": "^22.0.0",
+    "@angular/core": "^22.0.0",
+    "@angular/platform-browser": "^22.0.0",
+    "@at/ui-core": "^0.1.0",
+    "@at/ui-http": "^0.1.0",
+    "@eslint/js": "^9.0.0",
+    "@ngrx/signals": "^22.0.0",
+    "@types/node": "^22.0.0",
+    "eslint": "^9.0.0",
+    "jsdom": "^29.0.0",
+    "rxjs": "~7.8.0",
+    "typescript": "~5.9.0",
+    "typescript-eslint": "^8.0.0",
+    "vitest": "^3.0.0"
+  }
+}
