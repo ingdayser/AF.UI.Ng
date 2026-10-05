@@ -133,9 +133,17 @@ describe('parameter clients', () => {
     http.expectOne(`${CORE}/parameter/account/A1/movimientos`).flush(ok([]));
   });
 
-  it('suppliers cannot be deleted', () => {
-    setup();
-    expect('remove' in TestBed.inject(SUPPLIER_API)).toBe(false);
+  it('suppliers have the CRUD calls, delete included', () => {
+    const { http } = setup();
+    const api = TestBed.inject(SUPPLIER_API);
+    api.create({ businessName: 'Proveedor', documentTypeId: 'd', taxId: '900', phone: null, email: null, address: null }).subscribe();
+    api.remove('s1').subscribe();
+    const calls = http.match(() => true);
+    expect(calls.map((c) => `${c.request.method} ${c.request.url.replace(CORE, '')}`)).toEqual([
+      'POST /parameter/supplier',
+      'DELETE /parameter/supplier/s1',
+    ]);
+    calls.forEach((c) => c.flush(ok(c.request.method === 'DELETE' ? null : {})));
   });
 
   it('asks for the payment calendar in local time', () => {

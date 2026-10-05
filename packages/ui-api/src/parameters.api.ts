@@ -68,26 +68,10 @@ export class QuotaStatusApi extends CrudApi<QuotaStatusDto, QuotaStatusRequest> 
 }
 export const QUOTA_STATUS_API = apiToken('QUOTA_STATUS_API', () => new QuotaStatusApi());
 
-/** Suppliers have no delete in the API. */
-export class SupplierApi extends AfApi {
+/** Suppliers: `parameter/supplier`. */
+export class SupplierApi extends CrudApi<SupplierDto, SupplierRequest> {
   constructor() {
     super('parameter/supplier');
-  }
-
-  getAll(): Observable<SupplierDto[]> {
-    return this.get<SupplierDto[]>('');
-  }
-
-  getById(id: string): Observable<SupplierDto> {
-    return this.get<SupplierDto>(id);
-  }
-
-  create(request: SupplierRequest): Observable<SupplierDto> {
-    return this.post<SupplierRequest, SupplierDto>('', request);
-  }
-
-  update(id: string, request: SupplierRequest): Observable<SupplierDto> {
-    return this.put<SupplierRequest, SupplierDto>(id, request);
   }
 }
 export const SUPPLIER_API = apiToken('SUPPLIER_API', () => new SupplierApi());
