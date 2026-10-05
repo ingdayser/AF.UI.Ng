@@ -1,6 +1,6 @@
 {
   "name": "@af/ui-models",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Apoyo Financiero: API models (loans, customers, accounts, payments, parameters) and the pure rules around them. No Angular.",
   "type": "module",
   "sideEffects": false,
@@ -10,6 +10,7 @@
   "files": ["dist"],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
+    "prepack": "npm run build",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run"
   },
