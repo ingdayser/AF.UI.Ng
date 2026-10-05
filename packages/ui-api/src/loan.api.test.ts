@@ -83,6 +83,20 @@ describe('CustomerApi', () => {
     byDocument?.flush(ok([]));
   });
 
+  it('finds with the filters that are not empty, and lists all with none', () => {
+    const { http, loading } = setup();
+    const api = TestBed.inject(CUSTOMER_API);
+    api.find({ name: ' Ana ', documentOrContact: '' }, { silent: true }).subscribe();
+    expect(loading.pending()).toBe(0);
+    api.find().subscribe();
+    expect(loading.pending()).toBe(1);
+    const [filtered, all] = http.match((r) => r.url === `${CORE}/parameter/customer`);
+    expect(filtered?.request.params.toString()).toBe('name=Ana');
+    expect(all?.request.params.keys()).toEqual([]);
+    filtered?.flush(ok([]));
+    all?.flush(ok([]));
+  });
+
   it('lists the loans of a customer', () => {
     const { http } = setup();
     TestBed.inject(CUSTOMER_API).getLoans('C1').subscribe();

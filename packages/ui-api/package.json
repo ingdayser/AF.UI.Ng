@@ -1,6 +1,6 @@
 {
   "name": "@af/ui-api",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Apoyo Financiero: Angular clients for the Core API (loans, customers, accounts, payment types, rates and the rest of the parameters).",
   "type": "module",
   "sideEffects": false,
