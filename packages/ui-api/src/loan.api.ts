@@ -72,6 +72,15 @@ export class LoanApi extends AfApi {
     });
   }
 
+  /** Retanqueo of an LP loan: extra disbursement from `accountId` that grows the capital. */
+  retanquear(loanId: string, accountId: string, amount: number, date: string): Observable<LoanDto> {
+    return this.post<{ accountId: string; amount: number; date: string }, LoanDto>(`${loanId}/retanqueo`, {
+      accountId,
+      amount,
+      date,
+    });
+  }
+
   sign(loanId: string): Observable<LoanDto> {
     return this.post<null, LoanDto>(`${loanId}/sign`, null);
   }
