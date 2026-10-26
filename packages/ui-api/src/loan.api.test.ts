@@ -38,6 +38,15 @@ describe('LoanApi', () => {
     expect(result).toEqual({ paymentId: 'P1', affectedQuotas: [] });
   });
 
+  it('posts a retanqueo with the source account, amount and date', () => {
+    const { http } = setup();
+    TestBed.inject(LOAN_API).retanquear('L1', 'A1', 500, '2026-02-01').subscribe();
+    const req = http.expectOne(`${CORE}/finance/loan/L1/retanqueo`);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({ accountId: 'A1', amount: 500, date: '2026-02-01' });
+    req.flush(ok({ loanId: 'L1' }));
+  });
+
   it('asks for the mora with the payment date and without showing the loader', () => {
     const { http, loading } = setup();
     TestBed.inject(LOAN_API).getMoraPreview('L1', '2026-02-01').subscribe();
